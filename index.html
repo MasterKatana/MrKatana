@@ -6,97 +6,199 @@
 <title>MrKatana</title>
 
 <style>
-/* ---------- RESET ---------- */
+:root {
+    --bg: #e6e6e6;
+    --text: #000;
+    --line: rgba(0,0,0,0.06);
+}
+
+body.dark {
+    --bg: #0f0f0f;
+    --text: #fff;
+    --line: rgba(255,255,255,0.06);
+}
+
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: sans-serif;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ---------- BACKGROUND ---------- */
 body {
-  height: 100vh;
-  background: linear-gradient(120deg, #ffffff, #d9d9d9, #f2f2f2);
-  background-size: 400% 400%;
-  animation: bgMove 10s ease infinite;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: background 0.4s, color 0.4s;
 }
 
-@keyframes bgMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* background lines */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--line),
+        var(--line) 1px,
+        transparent 1px,
+        transparent 80px
+    );
+    animation: move 10s linear infinite;
 }
 
-/* ---------- MAIN ---------- */
-#main {
-  text-align: center;
+@keyframes move {
+    from { background-position: 0 0; }
+    to { background-position: 200px 0; }
+}
+
+.container {
+    position: relative;
+    text-align: center;
+    z-index: 1;
+}
+
+.avatar {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 3px solid var(--text);
+    object-fit: cover;
+    margin-bottom: 20px;
 }
 
 h1 {
-  font-size: 44px;
-  color: #333;
-  margin-bottom: 12px;
+    margin: 0;
+    font-size: 56px;
+    letter-spacing: 2px;
 }
 
-p {
-  font-size: 18px;
-  color: #666;
+.subtitle {
+    margin: 12px 0 35px;
+    font-size: 15px;
+    opacity: 0.7;
 }
 
-/* ---------- AUDIO CONTROL ---------- */
-#audioControl {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: rgba(255,255,255,0.85);
-  padding: 10px 14px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.buttons a {
+    display: inline-block;
+    margin: 8px;
+    padding: 14px 36px;
+    border: 2px solid var(--text);
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 16px;
+    transition: all 0.3s ease;
 }
 
-#volume {
-  width: 120px;
+.buttons a:hover {
+    background: var(--text);
+    color: var(--bg);
+    transform: translateY(-2px);
+}
+
+/* theme toggle */
+.toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 16px;
+    border: 2px solid var(--text);
+    background: none;
+    color: var(--text);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.toggle:hover {
+    background: var(--text);
+    color: var(--bg);
+}
+
+/* audio control */
+.audio {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 14px;
+    border: 2px solid var(--text);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg);
+}
+
+.audio button {
+    border: none;
+    background: none;
+    color: var(--text);
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.audio input {
+    width: 90px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- ---------- MAIN ---------- -->
-<div id="main">
-  <h1>MrKatana</h1>
-  <p>Streamer • YouTuber • Aparater</p>
+<div class="container">
+    <img src="assets/avatar.png" class="avatar" alt="MrKatana">
+
+    <h1>MrKatana</h1>
+    <div class="subtitle">Streamer • YouTuber • Aparater</div>
+
+    <div class="buttons">
+        <a href="https://www.aparat.com/MasterKatana" target="_blank">Aparat</a>
+        <a href="https://www.aparat.com/MasterKatana/live" target="_blank">Live Stream</a>
+        <a href="http://www.youtube.com/@Master_katana" target="_blank">YouTube</a>
+    </div>
 </div>
 
-<!-- ---------- AUDIO ---------- -->
-<audio id="bgMusic" autoplay loop>
-  <source src="lofi.mp3" type="audio/mpeg">
+<button class="toggle" onclick="toggleTheme()">Night / Day</button>
+
+<!-- AUDIO -->
+<audio id="music" autoplay loop>
+    <source src="lofi.mp3" type="audio/mpeg">
 </audio>
 
-<!-- ---------- AUDIO CONTROL ---------- -->
-<div id="audioControl">
-  🔊
-  <input type="range" id="volume" min="0" max="100" value="25">
+<div class="audio">
+    <button onclick="toggleMusic()">⏯</button>
+    <input type="range" min="0" max="100" id="volume">
 </div>
 
 <script>
-const music = document.getElementById("bgMusic");
-const volumeSlider = document.getElementById("volume");
+function toggleTheme() {
+    document.body.classList.toggle("dark");
+}
 
-// مقدار اولیه صدا
-music.volume = volumeSlider.value / 100;
+// audio logic
+const music = document.getElementById("music");
+const volume = document.getElementById("volume");
 
-// تغییر صدا
-volumeSlider.addEventListener("input", () => {
-  music.volume = volumeSlider.value / 100;
+// load saved volume
+const savedVolume = localStorage.getItem("volume") || 30;
+music.volume = savedVolume / 100;
+volume.value = savedVolume;
+
+volume.addEventListener("input", () => {
+    music.volume = volume.value / 100;
+    localStorage.setItem("volume", volume.value);
 });
+
+function toggleMusic() {
+    if (music.paused) {
+        music.play();
+    } else {
+        music.pause();
+    }
+}
 </script>
 
 </body>
