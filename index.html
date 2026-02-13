@@ -1,104 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
 <meta charset="UTF-8">
-<title>MrKatana</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MrKatana</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+:root {
+    --bg: #e6e6e6;
+    --text: #000;
+    --line: rgba(0,0,0,0.06);
+}
+
+body.dark {
+    --bg: #0f0f0f;
+    --text: #fff;
+    --line: rgba(255,255,255,0.06);
+}
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-  min-height: 100vh;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      #f2f2f2 0px,
-      #f2f2f2 40px,
-      #eaeaea 40px,
-      #eaeaea 80px
-    );
-  animation: bgMove 12s linear infinite;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: background 0.4s, color 0.4s;
 }
 
-@keyframes bgMove {
-  from { background-position: 0 0; }
-  to   { background-position: 400px 0; }
+/* background lines */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--line),
+        var(--line) 1px,
+        transparent 1px,
+        transparent 80px
+    );
+    animation: move 10s linear infinite;
+}
+
+@keyframes move {
+    from { background-position: 0 0; }
+    to { background-position: 200px 0; }
 }
 
 .container {
-  text-align: center;
+    position: relative;
+    text-align: center;
+    z-index: 1;
 }
 
 .avatar {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  border: 3px solid #000;
-  object-fit: cover;
-  margin-bottom: 20px;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 3px solid var(--text);
+    object-fit: cover;
+    margin-bottom: 20px;
 }
 
 h1 {
-  font-size: 48px;
-  font-weight: 800;
-  margin-bottom: 8px;
+    margin: 0;
+    font-size: 56px;
+    letter-spacing: 2px;
 }
 
 .subtitle {
-  color: #555;
-  font-size: 16px;
-  margin-bottom: 32px;
+    margin: 12px 0 35px;
+    font-size: 15px;
+    opacity: 0.7;
 }
 
-.buttons {
-  display: flex;
-  gap: 18px;
-  justify-content: center;
-  flex-wrap: wrap;
+.buttons a {
+    display: inline-block;
+    margin: 8px;
+    padding: 14px 36px;
+    border: 2px solid var(--text);
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 16px;
+    transition: all 0.3s ease;
 }
 
-.btn {
-  text-decoration: none;
-  color: #000;
-  border: 2px solid #000;
-  padding: 14px 28px;
-  border-radius: 14px;
-  font-weight: 600;
-  transition: all 0.25s ease;
-  background: transparent;
+.buttons a:hover {
+    background: var(--text);
+    color: var(--bg);
+    transform: translateY(-2px);
 }
 
-.btn:hover {
-  background: #000;
-  color: #fff;
-  transform: translateY(-3px);
+/* theme toggle */
+.toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 16px;
+    border: 2px solid var(--text);
+    background: none;
+    color: var(--text);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.toggle:hover {
+    background: var(--text);
+    color: var(--bg);
 }
 </style>
 </head>
 
 <body>
-  <div class="container">
-    <img src="assets/avatar.png" alt="Avatar" class="avatar">
+
+<div class="container">
+    <img src="assets/avatar.png" class="avatar" alt="MrKatana">
 
     <h1>MrKatana</h1>
     <div class="subtitle">Streamer • YouTuber • Aparater</div>
 
     <div class="buttons">
-      <a class="btn" href="https://www.aparat.com/MasterKatana" target="_blank">Aparat</a>
-      <a class="btn" href="https://www.aparat.com/MasterKatana/live" target="_blank">Live Stream</a>
-      <a class="btn" href="http://www.youtube.com/@Master_katana" target="_blank">YouTube</a>
+        <a href="https://www.aparat.com/MasterKatana" target="_blank">Aparat</a>
+        <a href="https://www.aparat.com/MasterKatana/live" target="_blank">Live Stream</a>
+        <a href="http://www.youtube.com/@Master_katana" target="_blank">YouTube</a>
     </div>
-  </div>
+</div>
+
+<button class="toggle" onclick="toggleTheme()">Night / Day</button>
+
+<script>
+function toggleTheme() {
+    document.body.classList.toggle("dark");
+}
+</script>
+
 </body>
 </html>
