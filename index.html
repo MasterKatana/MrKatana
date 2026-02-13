@@ -2,10 +2,11 @@
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
-<title>MrKatana</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MrKatana</title>
 
 <style>
+/* ---------- RESET ---------- */
 * {
   margin: 0;
   padding: 0;
@@ -13,103 +14,89 @@
   font-family: sans-serif;
 }
 
-/* BACKGROUND ANIMATION */
+/* ---------- BACKGROUND ---------- */
 body {
   height: 100vh;
-  background: linear-gradient(120deg, #eee, #bbb, #eee);
+  background: linear-gradient(120deg, #ffffff, #d9d9d9, #f2f2f2);
   background-size: 400% 400%;
-  animation: bgMove 8s infinite;
+  animation: bgMove 10s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
 }
 
 @keyframes bgMove {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* SPLASH */
-#splash {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background: rgba(255,255,255,0.95);
-  z-index: 10;
-  transition: opacity 0.6s ease;
-}
-
-#splash.hide {
-  opacity: 0;
-  pointer-events: none;
-}
-
-#enterBtn {
-  padding: 18px 50px;
-  border: 2px solid #444;
-  background: transparent;
-  font-size: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-#enterBtn:hover {
-  background: #444;
-  color: #fff;
-}
-
-/* MAIN SITE */
+/* ---------- MAIN ---------- */
 #main {
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#main.show {
-  opacity: 1;
-}
-
-.content {
   text-align: center;
 }
 
-.content h1 {
-  font-size: 48px;
-  margin-bottom: 10px;
+h1 {
+  font-size: 44px;
+  color: #333;
+  margin-bottom: 12px;
 }
 
-.content p {
+p {
   font-size: 18px;
+  color: #666;
+}
+
+/* ---------- AUDIO CONTROL ---------- */
+#audioControl {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255,255,255,0.85);
+  padding: 10px 14px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#volume {
+  width: 120px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- SPLASH -->
-<div id="splash">
-  <h1 style="margin-bottom:30px;">MrKatana</h1>
-  <button id="enterBtn">ENTER</button>
+<!-- ---------- MAIN ---------- -->
+<div id="main">
+  <h1>MrKatana</h1>
+  <p>Streamer • YouTuber • Aparater</p>
 </div>
 
-<!-- MAIN -->
-<div id="main">
-  <div class="content">
-    <h1>Welcome 👋</h1>
-    <p>Streamer • YouTuber • Aparater</p>
-  </div>
+<!-- ---------- AUDIO ---------- -->
+<audio id="bgMusic" autoplay loop>
+  <source src="lofi.mp3" type="audio/mpeg">
+</audio>
+
+<!-- ---------- AUDIO CONTROL ---------- -->
+<div id="audioControl">
+  🔊
+  <input type="range" id="volume" min="0" max="100" value="25">
 </div>
 
 <script>
-document.getElementById("enterBtn").onclick = () => {
-  document.getElementById("splash").classList.add("hide");
-  document.getElementById("main").classList.add("show");
-};
+const music = document.getElementById("bgMusic");
+const volumeSlider = document.getElementById("volume");
+
+// مقدار اولیه صدا
+music.volume = volumeSlider.value / 100;
+
+// تغییر صدا
+volumeSlider.addEventListener("input", () => {
+  music.volume = volumeSlider.value / 100;
+});
 </script>
 
 </body>
