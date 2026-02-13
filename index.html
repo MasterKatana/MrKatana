@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MrKatana</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
 <style>
 * {
     box-sizing: border-box;
@@ -12,11 +14,15 @@
     padding: 0;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     background: #000;
     color: #fff;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
-    line-height: 1.6;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
 }
 
 /* ===== HERO ===== */
@@ -28,34 +34,47 @@ body {
     text-align: center;
 }
 
-.hero img {
+.hero-inner {
+    animation: fadeUp 1.2s ease forwards;
+}
+
+.avatar {
     width: 180px;
     height: 180px;
     border-radius: 50%;
-    border: 3px solid #fff;
     margin-bottom: 25px;
+    position: relative;
+    box-shadow: 0 0 40px rgba(255,255,255,0.15);
+    transition: 0.4s;
+}
+
+.avatar:hover {
+    box-shadow: 0 0 80px rgba(255,255,255,0.4);
+    transform: scale(1.05);
 }
 
 .hero h1 {
     font-size: 64px;
+    font-weight: 800;
     letter-spacing: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 .hero p {
-    opacity: 0.7;
-    margin-bottom: 30px;
+    opacity: 0.6;
+    margin-bottom: 35px;
 }
 
 /* ===== BUTTONS ===== */
 .buttons a {
     display: inline-block;
     margin: 10px;
-    padding: 12px 34px;
+    padding: 14px 38px;
     border: 2px solid #fff;
     color: #fff;
     text-decoration: none;
-    transition: 0.3s;
+    font-weight: 500;
+    transition: 0.35s;
 }
 
 .buttons a:hover {
@@ -68,11 +87,20 @@ section {
     max-width: 900px;
     margin: auto;
     padding: 120px 20px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 1s;
+}
+
+section.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 section h2 {
     font-size: 36px;
     margin-bottom: 30px;
+    font-weight: 600;
     border-bottom: 1px solid #333;
     display: inline-block;
     padding-bottom: 10px;
@@ -81,10 +109,16 @@ section h2 {
 /* ===== SKILLS ===== */
 .skills span {
     display: inline-block;
-    border: 1px solid #fff;
-    padding: 8px 16px;
+    padding: 10px 18px;
     margin: 8px;
+    border: 1px solid #fff;
     font-size: 14px;
+    transition: 0.3s;
+}
+
+.skills span:hover {
+    background: #fff;
+    color: #000;
 }
 
 /* ===== FOOTER ===== */
@@ -94,6 +128,28 @@ footer {
     opacity: 0.4;
     font-size: 14px;
 }
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 600px) {
+    .hero h1 {
+        font-size: 44px;
+    }
+    section {
+        padding: 90px 20px;
+    }
+}
 </style>
 </head>
 
@@ -101,8 +157,8 @@ footer {
 
 <!-- HERO -->
 <div class="hero">
-    <div>
-        <img src="assets/avatar.png" alt="MrKatana">
+    <div class="hero-inner">
+        <img src="assets/avatar.png" class="avatar" alt="MrKatana">
         <h1>MrKatana</h1>
         <p>Minimal • Creative • Digital</p>
         <div class="buttons">
@@ -116,7 +172,7 @@ footer {
     <h2>About</h2>
     <p>
         I’m MrKatana — a digital creator focused on clean design,
-        minimal aesthetics, and creative content.
+        minimal aesthetics and creative content.
     </p>
 </section>
 
@@ -126,9 +182,9 @@ footer {
     <div class="skills">
         <span>HTML</span>
         <span>CSS</span>
-        <span>Design</span>
-        <span>Creative Content</span>
+        <span>UI Design</span>
         <span>Branding</span>
+        <span>Creative Content</span>
     </div>
 </section>
 
@@ -146,6 +202,19 @@ footer {
 <footer>
     © 2026 MrKatana
 </footer>
+
+<script>
+const sections = document.querySelectorAll("section");
+
+window.addEventListener("scroll", () => {
+    sections.forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        if (top < window.innerHeight - 100) {
+            sec.classList.add("show");
+        }
+    });
+});
+</script>
 
 </body>
 </html>
