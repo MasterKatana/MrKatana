@@ -2,145 +2,114 @@
 <html lang="fa">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MrKatana</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root {
-    --bg: #e6e6e6;
-    --text: #000;
-    --line: rgba(0,0,0,0.06);
-}
-
-body.dark {
-    --bg: #0f0f0f;
-    --text: #fff;
-    --line: rgba(255,255,255,0.06);
-}
-
 * {
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
 }
 
+/* BACKGROUND ANIMATION */
 body {
-    margin: 0;
-    min-height: 100vh;
-    background: var(--bg);
-    color: var(--text);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    transition: background 0.4s, color 0.4s;
+  height: 100vh;
+  background: linear-gradient(120deg, #eee, #bbb, #eee);
+  background-size: 400% 400%;
+  animation: bgMove 8s infinite;
+  overflow: hidden;
 }
 
-/* background lines */
-body::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-        90deg,
-        var(--line),
-        var(--line) 1px,
-        transparent 1px,
-        transparent 80px
-    );
-    animation: move 10s linear infinite;
+@keyframes bgMove {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
 }
 
-@keyframes move {
-    from { background-position: 0 0; }
-    to { background-position: 200px 0; }
+/* SPLASH */
+#splash {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: rgba(255,255,255,0.95);
+  z-index: 10;
+  transition: opacity 0.6s ease;
 }
 
-.container {
-    position: relative;
-    text-align: center;
-    z-index: 1;
+#splash.hide {
+  opacity: 0;
+  pointer-events: none;
 }
 
-.avatar {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    border: 3px solid var(--text);
-    object-fit: cover;
-    margin-bottom: 20px;
+#enterBtn {
+  padding: 18px 50px;
+  border: 2px solid #444;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-h1 {
-    margin: 0;
-    font-size: 56px;
-    letter-spacing: 2px;
+#enterBtn:hover {
+  background: #444;
+  color: #fff;
 }
 
-.subtitle {
-    margin: 12px 0 35px;
-    font-size: 15px;
-    opacity: 0.7;
+/* MAIN SITE */
+#main {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.buttons a {
-    display: inline-block;
-    margin: 8px;
-    padding: 14px 36px;
-    border: 2px solid var(--text);
-    color: var(--text);
-    text-decoration: none;
-    border-radius: 16px;
-    transition: all 0.3s ease;
+#main.show {
+  opacity: 1;
 }
 
-.buttons a:hover {
-    background: var(--text);
-    color: var(--bg);
-    transform: translateY(-2px);
+.content {
+  text-align: center;
 }
 
-/* theme toggle */
-.toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 10px 16px;
-    border: 2px solid var(--text);
-    background: none;
-    color: var(--text);
-    border-radius: 14px;
-    cursor: pointer;
-    transition: 0.3s;
+.content h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
 }
 
-.toggle:hover {
-    background: var(--text);
-    color: var(--bg);
+.content p {
+  font-size: 18px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <img src="assets/avatar.png" class="avatar" alt="MrKatana">
-
-    <h1>MrKatana</h1>
-    <div class="subtitle">Streamer • YouTuber • Aparater</div>
-
-    <div class="buttons">
-        <a href="https://www.aparat.com/MasterKatana" target="_blank">Aparat</a>
-        <a href="https://www.aparat.com/MasterKatana/live" target="_blank">Live Stream</a>
-        <a href="http://www.youtube.com/@Master_katana" target="_blank">YouTube</a>
-    </div>
+<!-- SPLASH -->
+<div id="splash">
+  <h1 style="margin-bottom:30px;">MrKatana</h1>
+  <button id="enterBtn">ENTER</button>
 </div>
 
-<button class="toggle" onclick="toggleTheme()">Night / Day</button>
+<!-- MAIN -->
+<div id="main">
+  <div class="content">
+    <h1>Welcome 👋</h1>
+    <p>Streamer • YouTuber • Aparater</p>
+  </div>
+</div>
 
 <script>
-function toggleTheme() {
-    document.body.classList.toggle("dark");
-}
+document.getElementById("enterBtn").onclick = () => {
+  document.getElementById("splash").classList.add("hide");
+  document.getElementById("main").classList.add("show");
+};
 </script>
 
 </body>
