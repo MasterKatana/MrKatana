@@ -22,13 +22,13 @@ body {
     background: linear-gradient(
         120deg,
         #ffffff,
-        #e5e5e5,
-        #bfbfbf,
-        #e5e5e5,
+        #f0f0f0,
+        #d9d9d9,
+        #f0f0f0,
         #ffffff
     );
     background-size: 400% 400%;
-    animation: bgMove 14s ease-in-out infinite;
+    animation: bgMove 16s ease-in-out infinite;
 }
 
 /* BACKGROUND ANIMATION */
@@ -47,12 +47,8 @@ body {
     text-align: center;
 }
 
-/* DARK GLASS CARD */
+/* CONTENT */
 .hero-inner {
-    padding: 60px 70px;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(12px);
-    border-radius: 20px;
     animation: fadeUp 1.2s ease forwards;
 }
 
@@ -62,13 +58,13 @@ body {
     height: 180px;
     border-radius: 50%;
     margin-bottom: 25px;
-    border: 3px solid #fff;
-    box-shadow: 0 0 60px rgba(255,255,255,0.35);
+    border: 3px solid #000;
+    box-shadow: 0 0 50px rgba(0,0,0,0.25);
     transition: 0.4s;
 }
 
 .avatar:hover {
-    box-shadow: 0 0 110px rgba(255,255,255,0.6);
+    box-shadow: 0 0 90px rgba(0,0,0,0.4);
     transform: scale(1.06);
 }
 
@@ -78,30 +74,29 @@ h1 {
     font-weight: 800;
     letter-spacing: 4px;
     margin-bottom: 12px;
-    color: #fff;
 }
 
 p {
     opacity: 0.7;
     margin-bottom: 35px;
     font-size: 16px;
-    color: #fff;
 }
 
-/* BUTTON */
+/* BUTTONS */
 .buttons a {
     display: inline-block;
-    padding: 14px 42px;
-    border: 2px solid #fff;
-    color: #fff;
+    margin: 8px;
+    padding: 14px 34px;
+    border: 2px solid #000;
+    color: #000;
     text-decoration: none;
     font-weight: 500;
     transition: 0.35s;
 }
 
 .buttons a:hover {
-    background: #fff;
-    color: #000;
+    background: #000;
+    color: #fff;
 }
 
 /* ANIMATION */
@@ -118,9 +113,6 @@ p {
 
 /* MOBILE */
 @media (max-width: 600px) {
-    .hero-inner {
-        padding: 45px 30px;
-    }
     h1 {
         font-size: 44px;
     }
@@ -139,10 +131,11 @@ p {
         <img src="assets/avatar.png" class="avatar" alt="MrKatana">
         <h1>MrKatana</h1>
         <p>Streamer • YouTuber • Aparater</p>
+
         <div class="buttons">
-            <a href="https://www.aparat.com/MasterKatana" target="_blank">
-                Aparat
-            </a>
+            <a href="https://www.aparat.com/MasterKatana" target="_blank">Aparat</a>
+            <a href="https://www.aparat.com/MasterKatana/live" target="_blank">Live Stream</a>
+            <a href="http://www.youtube.com/@Master_katana" target="_blank">YouTube</a>
         </div>
     </div>
 </div>
