@@ -2,149 +2,103 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MrKatana</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
-    height: 100vh;
-    font-family: 'Inter', sans-serif;
-    overflow: hidden;
-    color: #000;
-
-    /* Base background */
-    background-color: #eaeaea;
-}
-
-/* ===== MOVING LINES BACKGROUND ===== */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: repeating-linear-gradient(
-        90deg,
-        rgba(255,255,255,0.35) 0px,
-        rgba(255,255,255,0.35) 1px,
-        transparent 1px,
-        transparent 40px
+  min-height: 100vh;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #f2f2f2 0px,
+      #f2f2f2 40px,
+      #eaeaea 40px,
+      #eaeaea 80px
     );
-    animation: linesMove 18s linear infinite;
-    pointer-events: none;
+  animation: bgMove 12s linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-@keyframes linesMove {
-    from { background-position: 0 0; }
-    to   { background-position: 400px 0; }
+@keyframes bgMove {
+  from { background-position: 0 0; }
+  to   { background-position: 400px 0; }
 }
 
-/* ===== HERO ===== */
-.hero {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+.container {
+  text-align: center;
 }
 
-.hero-inner {
-    animation: fadeUp 1.2s ease forwards;
-}
-
-/* AVATAR */
 .avatar {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    margin-bottom: 25px;
-    border: 3px solid #000;
-    box-shadow: 0 0 45px rgba(0,0,0,0.25);
-    transition: 0.4s;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 3px solid #000;
+  object-fit: cover;
+  margin-bottom: 20px;
 }
 
-.avatar:hover {
-    box-shadow: 0 0 85px rgba(0,0,0,0.45);
-    transform: scale(1.06);
-}
-
-/* TEXT */
 h1 {
-    font-size: 64px;
-    font-weight: 800;
-    letter-spacing: 4px;
-    margin-bottom: 12px;
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 8px;
 }
 
-p {
-    opacity: 0.7;
-    margin-bottom: 35px;
-    font-size: 16px;
+.subtitle {
+  color: #555;
+  font-size: 16px;
+  margin-bottom: 32px;
 }
 
-/* BUTTONS */
-.buttons a {
-    display: inline-block;
-    margin: 8px;
-    padding: 14px 34px;
-    border: 2px solid #000;
-    color: #000;
-    text-decoration: none;
-    font-weight: 500;
-    transition: 0.35s;
+.buttons {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.buttons a:hover {
-    background: #000;
-    color: #fff;
+.btn {
+  text-decoration: none;
+  color: #000;
+  border: 2px solid #000;
+  padding: 14px 28px;
+  border-radius: 14px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  background: transparent;
 }
 
-/* ANIMATION */
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-    h1 {
-        font-size: 44px;
-    }
-    .avatar {
-        width: 150px;
-        height: 150px;
-    }
+.btn:hover {
+  background: #000;
+  color: #fff;
+  transform: translateY(-3px);
 }
 </style>
 </head>
 
 <body>
+  <div class="container">
+    <img src="assets/avatar.png" alt="Avatar" class="avatar">
 
-<div class="hero">
-    <div class="hero-inner">
-        <img src="assets/avatar.png" class="avatar" alt="MrKatana">
-        <h1>MrKatana</h1>
-        <p>Streamer • YouTuber • Aparater</p>
+    <h1>MrKatana</h1>
+    <div class="subtitle">Streamer • YouTuber • Aparater</div>
 
-        <div class="buttons">
-            <a href="https://www.aparat.com/MasterKatana" target="_blank">Aparat</a>
-            <a href="https://www.aparat.com/MasterKatana/live" target="_blank">Live Stream</a>
-            <a href="http://www.youtube.com/@Master_katana" target="_blank">YouTube</a>
-        </div>
+    <div class="buttons">
+      <a class="btn" href="https://www.aparat.com/MasterKatana" target="_blank">Aparat</a>
+      <a class="btn" href="https://www.aparat.com/MasterKatana/live" target="_blank">Live Stream</a>
+      <a class="btn" href="http://www.youtube.com/@Master_katana" target="_blank">YouTube</a>
     </div>
-</div>
-
+  </div>
 </body>
 </html>
