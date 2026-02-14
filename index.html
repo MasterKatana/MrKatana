@@ -5,12 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MrKatana</title>
 
-<!-- FAVICON -->
-<link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="favicon.png">
-<link rel="apple-touch-icon" href="favicon.png">
-<link rel="shortcut icon" href="favicon.png" type="image/x-icon">
-
 <style>
 :root {
     --bg: #e6e6e6;
@@ -105,26 +99,23 @@ h1 {
     transform: translateY(-2px);
 }
 
-/* theme toggle */
-.toggle {
+/* toggles */
+.toggle, .donate, .friends-btn {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
     padding: 10px 16px;
     border: 2px solid var(--text);
     background: none;
     color: var(--text);
     border-radius: 14px;
     cursor: pointer;
-    transition: 0.3s;
+    z-index: 5;
 }
 
-.toggle:hover {
-    background: var(--text);
-    color: var(--bg);
-}
+.toggle { bottom: 20px; right: 20px; }
+.donate { top: 20px; right: 20px; }
+.friends-btn { top: 20px; left: 20px; }
 
-/* audio control */
+/* audio */
 .audio {
     position: fixed;
     bottom: 20px;
@@ -133,9 +124,7 @@ h1 {
     border: 2px solid var(--text);
     border-radius: 14px;
     display: flex;
-    align-items: center;
     gap: 10px;
-    background: var(--bg);
 }
 
 .audio button {
@@ -146,8 +135,69 @@ h1 {
     cursor: pointer;
 }
 
-.audio input {
-    width: 90px;
+/* FRIENDS PANEL */
+.friends-panel {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(6px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.friends-box {
+    background: var(--bg);
+    border: 2px solid var(--text);
+    border-radius: 24px;
+    padding: 30px;
+    width: 340px;
+    text-align: center;
+}
+
+.friends-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.friend {
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.friend .circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.friend:hover .circle {
+    background: var(--text);
+    color: var(--bg);
+    transform: scale(1.1);
+}
+
+.close {
+    padding: 8px 20px;
+    border-radius: 14px;
+    border: 2px solid var(--text);
+    background: none;
+    color: var(--text);
+    cursor: pointer;
 }
 </style>
 </head>
@@ -155,19 +205,20 @@ h1 {
 <body>
 
 <div class="container">
-    <img src="assets/avatar.png" class="avatar" alt="MrKatana">
-
+    <img src="assets/avatar.png" class="avatar">
     <h1>MrKatana</h1>
     <div class="subtitle">Streamer • YouTuber • Aparater</div>
 
     <div class="buttons">
         <a href="https://www.aparat.com/MasterKatana" target="_blank">Aparat</a>
-        <a href="https://www.aparat.com/MasterKatana/live" target="_blank">Live Stream</a>
-        <a href="http://www.youtube.com/@Master_katana" target="_blank">YouTube</a>
+        <a href="https://www.aparat.com/MasterKatana/live" target="_blank">Live</a>
+        <a href="https://www.youtube.com/@Master_katana" target="_blank">YouTube</a>
     </div>
 </div>
 
 <button class="toggle" onclick="toggleTheme()">Night / Day</button>
+<a class="donate" href="https://www.coffeebede.com/masterkatana" target="_blank">Donate</a>
+<button class="friends-btn" onclick="toggleFriends()">Friends</button>
 
 <audio id="music" autoplay loop>
     <source src="lofi.mp3" type="audio/mpeg">
@@ -178,6 +229,22 @@ h1 {
     <input type="range" min="0" max="100" id="volume">
 </div>
 
+<!-- FRIENDS -->
+<div class="friends-panel" id="friends">
+    <div class="friends-box">
+        <h2>My Friends</h2>
+
+        <div class="friends-grid">
+            <a href="#" class="friend"><div class="circle">A</div>Ali</a>
+            <a href="#" class="friend"><div class="circle">M</div>Mohammad</a>
+            <a href="#" class="friend"><div class="circle">S</div>Sina</a>
+            <a href="#" class="friend"><div class="circle">R</div>Reza</a>
+        </div>
+
+        <button class="close" onclick="toggleFriends()">Close</button>
+    </div>
+</div>
+
 <script>
 function toggleTheme() {
     document.body.classList.toggle("dark");
@@ -185,18 +252,21 @@ function toggleTheme() {
 
 const music = document.getElementById("music");
 const volume = document.getElementById("volume");
+volume.value = localStorage.getItem("vol") || 30;
+music.volume = volume.value / 100;
 
-const savedVolume = localStorage.getItem("volume") || 30;
-music.volume = savedVolume / 100;
-volume.value = savedVolume;
-
-volume.addEventListener("input", () => {
+volume.oninput = () => {
     music.volume = volume.value / 100;
-    localStorage.setItem("volume", volume.value);
-});
+    localStorage.setItem("vol", volume.value);
+};
 
 function toggleMusic() {
     music.paused ? music.play() : music.pause();
+}
+
+function toggleFriends() {
+    const f = document.getElementById("friends");
+    f.style.display = f.style.display === "flex" ? "none" : "flex";
 }
 </script>
 
