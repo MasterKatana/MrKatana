@@ -59,7 +59,7 @@ body::before{
 }
 h1{margin:0;font-size:56px}
 .subtitle{
-    margin:10px 0 26px;
+    margin:10px 0 28px;
     font-size:15px;
     opacity:.7;
 }
@@ -79,7 +79,7 @@ h1{margin:0;font-size:56px}
     transition:.3s;
     display:flex;
     align-items:center;
-    justify-content:center;
+    gap:8px;
 }
 .buttons a:hover{
     background:var(--text);
@@ -87,20 +87,17 @@ h1{margin:0;font-size:56px}
     transform:translateY(-2px);
 }
 
-/* LIVE CIRCLE */
-.live-btn{
-    width:64px;
-}
-.live-circle{
-    width:18px;
-    height:18px;
+/* LIVE DOT */
+.live-dot{
+    width:10px;
+    height:10px;
     background:#ff4d4d;
     border-radius:50%;
     animation:pulse 1.4s infinite;
 }
 @keyframes pulse{
     0%{box-shadow:0 0 0 0 rgba(255,77,77,.6)}
-    70%{box-shadow:0 0 0 10px rgba(255,77,77,0)}
+    70%{box-shadow:0 0 0 8px rgba(255,77,77,0)}
     100%{box-shadow:0 0 0 0 rgba(255,77,77,0)}
 }
 
@@ -201,11 +198,8 @@ h1{margin:0;font-size:56px}
     <div class="buttons">
         <a href="https://www.aparat.com/MasterKatana" target="_blank">Aparat</a>
 
-        <a href="https://www.aparat.com/MasterKatana/live"
-           target="_blank"
-           class="live-btn"
-           title="Live Stream">
-            <span class="live-circle"></span>
+        <a href="https://www.aparat.com/MasterKatana/live" target="_blank">
+            Live <span class="live-dot"></span>
         </a>
 
         <a href="https://www.youtube.com/@Master_katana" target="_blank">YouTube</a>
@@ -225,7 +219,7 @@ h1{margin:0;font-size:56px}
     <input type="range" min="0" max="100" id="volume">
 </div>
 
-<!-- FRIENDS PANEL -->
+<!-- FRIENDS -->
 <div class="friends-panel" id="friends">
 <div class="friends-box">
 <h2>My Friends</h2>
