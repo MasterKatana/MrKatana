@@ -7,142 +7,152 @@
 
 <style>
 :root{
-  --bg:#050505;
-  --card:#0b0b0b;
-  --text:#f2f2f2;
-  --muted:#6e6e6e;
-  --line:#151515;
+  --bg:#000000;
+  --text:#eaeaea;
+  --muted:#7a7a7a;
+  --accent:#ffffff;
 }
 
 *{
   box-sizing:border-box;
+  margin:0;
+  padding:0;
   font-family:system-ui,-apple-system,Segoe UI,Roboto;
 }
 
 body{
-  margin:0;
-  min-height:100vh;
-  background:var(--bg);
+  background:radial-gradient(circle at 50% 20%, #111 0%, #000 60%);
   color:var(--text);
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  min-height:100vh;
+  overflow:hidden;
 }
 
-/* deep grain */
+/* animated fog */
 body::before{
   content:"";
   position:fixed;
-  inset:0;
-  background:url("https://www.transparenttextures.com/patterns/noise.png");
-  opacity:.1;
-  pointer-events:none;
+  inset:-50%;
+  background:radial-gradient(circle, rgba(255,255,255,.05) 0%, transparent 60%);
+  animation:fogMove 18s linear infinite;
+  opacity:.15;
+}
+@keyframes fogMove{
+  from{transform:translateX(-10%) translateY(-10%)}
+  to{transform:translateX(10%) translateY(10%)}
 }
 
+/* layout */
 .container{
-  width:100%;
-  max-width:460px;
-  padding:64px 56px;
-  background:var(--card);
-  border:1px solid var(--line);
+  position:relative;
+  z-index:2;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  padding-left:12vw;
 }
 
-/* avatar */
-.avatar{
-  width:96px;
-  height:96px;
-  border-radius:50%;
-  object-fit:cover;
-  border:1px solid var(--line);
-  margin-bottom:36px;
+/* giant background text */
+.bg-text{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:18vw;
+  font-weight:800;
+  letter-spacing:20px;
+  color:#050505;
+  pointer-events:none;
+  user-select:none;
 }
 
-/* text */
+/* main title */
 h1{
-  margin:0;
-  font-size:38px;
-  font-weight:500;
-  letter-spacing:4px;
+  font-size:64px;
+  letter-spacing:6px;
+  margin-bottom:16px;
 }
 
 .subtitle{
-  margin-top:12px;
-  font-size:13px;
   color:var(--muted);
-}
-
-/* divider */
-.divider{
-  height:1px;
-  background:var(--line);
-  margin:44px 0;
+  margin-bottom:60px;
+  letter-spacing:2px;
 }
 
 /* links */
 .links{
   display:flex;
   flex-direction:column;
+  gap:28px;
 }
 
 .links a{
   text-decoration:none;
   color:var(--text);
-  padding:18px 0;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:14px;
-  letter-spacing:1px;
+  font-size:18px;
+  letter-spacing:3px;
+  position:relative;
+  width:max-content;
+  padding-bottom:6px;
 }
 
-.links a span{
-  color:var(--muted);
-  font-size:12px;
+.links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:0;
+  height:1px;
+  background:var(--accent);
+  transition:.4s ease;
 }
 
+.links a:hover::after{
+  width:100%;
+}
+
+/* glitch hover */
 .links a:hover{
-  background:#080808;
+  animation:glitch .25s linear;
+}
+@keyframes glitch{
+  0%{transform:skewX(0deg)}
+  25%{transform:skewX(6deg)}
+  50%{transform:skewX(-6deg)}
+  75%{transform:skewX(3deg)}
+  100%{transform:skewX(0deg)}
 }
 
 /* footer */
 .footer{
   position:fixed;
-  bottom:22px;
-  font-size:11px;
+  bottom:30px;
+  right:40px;
+  font-size:12px;
   color:var(--muted);
-  letter-spacing:2px;
+  letter-spacing:3px;
 }
 </style>
 </head>
 
 <body>
 
+<div class="bg-text">MK</div>
+
 <div class="container">
-  <img src="assets/avatar.png" class="avatar">
-
   <h1>MRKATANA</h1>
-  <div class="subtitle">NOISE OFF. WORK ON.</div>
-
-  <div class="divider"></div>
+  <div class="subtitle">ENTER IF YOU KNOW.</div>
 
   <div class="links">
-    <a href="https://www.aparat.com/MasterKatana" target="_blank">
-      APARAT <span>PRIMARY</span>
-    </a>
-
-    <a href="https://www.aparat.com/MasterKatana/live" target="_blank">
-      LIVE <span>ON AIR</span>
-    </a>
-
-    <a href="https://www.youtube.com/@Master_katana" target="_blank">
-      YOUTUBE <span>ARCHIVE</span>
-    </a>
+    <a href="https://www.aparat.com/MasterKatana" target="_blank">APARAT</a>
+    <a href="https://www.aparat.com/MasterKatana/live" target="_blank">LIVE</a>
+    <a href="https://www.youtube.com/@Master_katana" target="_blank">YOUTUBE</a>
   </div>
 </div>
 
 <div class="footer">
-  BUILT QUIET. MOVES HEAVY.
+  NO MERCY.
 </div>
 
 </body>
