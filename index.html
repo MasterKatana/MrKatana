@@ -7,230 +7,111 @@
 
 <style>
 :root{
-    --bg:#0e0e0e;
-    --card:#1a1a1a;
-    --text:#ffffff;
-    --muted:#9a9a9a;
-    --border:rgba(255,255,255,.12);
+  --bg:#050505;
+  --card:#0b0b0b;
+  --text:#f2f2f2;
+  --muted:#6e6e6e;
+  --line:#151515;
 }
 
 *{
-    box-sizing:border-box;
-    font-family:system-ui,-apple-system,Segoe UI,Roboto;
+  box-sizing:border-box;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto;
 }
 
 body{
-    margin:0;
-    min-height:100vh;
-    background:
-        radial-gradient(circle at top,rgba(255,255,255,.06),transparent 60%),
-        linear-gradient(#0a0a0a,#000);
-    color:var(--text);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
+  margin:0;
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-/* grain */
+/* deep grain */
 body::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:url("https://www.transparenttextures.com/patterns/noise.png");
-    opacity:.15;
-    pointer-events:none;
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url("https://www.transparenttextures.com/patterns/noise.png");
+  opacity:.1;
+  pointer-events:none;
 }
 
-/* main card */
 .container{
-    position:relative;
-    z-index:2;
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:28px;
-    padding:52px 58px;
-    text-align:center;
-    animation:enter 1s ease forwards;
-}
-@keyframes enter{
-    from{opacity:0;transform:translateY(50px)}
-    to{opacity:1;transform:none}
-}
-
-/* blade cut */
-.container::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(120deg,transparent,rgba(255,255,255,.18),transparent);
-    transform:translateX(-120%);
-    animation:blade 6s ease-in-out infinite;
-}
-@keyframes blade{
-    0%,70%{transform:translateX(-120%)}
-    85%{transform:translateX(120%)}
-    100%{transform:translateX(120%)}
+  width:100%;
+  max-width:460px;
+  padding:64px 56px;
+  background:var(--card);
+  border:1px solid var(--line);
 }
 
 /* avatar */
 .avatar{
-    width:138px;
-    height:138px;
-    border-radius:50%;
-    object-fit:cover;
-    border:2px solid var(--text);
-    margin-bottom:22px;
+  width:96px;
+  height:96px;
+  border-radius:50%;
+  object-fit:cover;
+  border:1px solid var(--line);
+  margin-bottom:36px;
 }
 
 /* text */
 h1{
-    margin:0;
-    font-size:54px;
-    letter-spacing:3px;
+  margin:0;
+  font-size:38px;
+  font-weight:500;
+  letter-spacing:4px;
 }
+
 .subtitle{
-    margin:12px 0 34px;
-    font-size:14px;
-    color:var(--muted);
+  margin-top:12px;
+  font-size:13px;
+  color:var(--muted);
 }
 
-/* buttons */
-.buttons{
-    display:flex;
-    gap:18px;
-    justify-content:center;
-    flex-wrap:wrap;
-}
-.buttons a{
-    position:relative;
-    padding:14px 42px;
-    color:var(--text);
-    text-decoration:none;
-    border:1px solid var(--border);
-    border-radius:18px;
-    overflow:hidden;
-    transition:.35s;
-}
-.buttons a::before{
-    content:"";
-    position:absolute;
-    top:0;
-    left:-120%;
-    width:120%;
-    height:100%;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,.7),transparent);
-}
-.buttons a:hover::before{
-    left:120%;
-    transition:.5s;
-}
-.buttons a:hover{
-    transform:translateY(-4px);
-    box-shadow:0 14px 40px rgba(0,0,0,.6);
+/* divider */
+.divider{
+  height:1px;
+  background:var(--line);
+  margin:44px 0;
 }
 
-/* live */
-.live-dot{
-    width:8px;
-    height:8px;
-    background:#fff;
-    border-radius:50%;
-    display:inline-block;
-    margin-left:6px;
-    animation:pulse 1.6s infinite;
-}
-@keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(255,255,255,.6)}
-    70%{box-shadow:0 0 0 12px rgba(255,255,255,0)}
-    100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}
+/* links */
+.links{
+  display:flex;
+  flex-direction:column;
 }
 
-/* fixed */
-.toggle,.donate,.friends-btn{
-    position:fixed;
-    padding:10px 18px;
-    border-radius:16px;
-    border:1px solid var(--border);
-    background:rgba(20,20,20,.8);
-    color:var(--text);
-    cursor:pointer;
-    backdrop-filter:blur(10px);
-    transition:.3s;
-}
-.toggle:hover,.donate:hover,.friends-btn:hover{
-    transform:scale(1.08);
+.links a{
+  text-decoration:none;
+  color:var(--text);
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:14px;
+  letter-spacing:1px;
 }
 
-.toggle{bottom:20px;right:20px}
-.donate{top:20px;right:20px;text-decoration:none}
-.friends-btn{top:20px;left:20px}
-
-/* audio */
-.audio{
-    position:fixed;
-    bottom:20px;
-    left:20px;
-    padding:10px 16px;
-    border-radius:16px;
-    border:1px solid var(--border);
-    background:rgba(20,20,20,.8);
-    display:flex;
-    gap:10px;
-}
-.audio button{
-    background:none;
-    border:none;
-    font-size:18px;
-    color:var(--text);
-    cursor:pointer;
+.links a span{
+  color:var(--muted);
+  font-size:12px;
 }
 
-/* friends */
-.friends-panel{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.7);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:20;
+.links a:hover{
+  background:#080808;
 }
-.friends-box{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:26px;
-    padding:32px;
-    width:360px;
-    text-align:center;
-}
-.friends-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:22px;
-    margin:22px 0;
-}
-.friend{
-    text-decoration:none;
-    color:var(--text);
-}
-.friend img{
-    width:68px;
-    height:68px;
-    border-radius:50%;
-    border:2px solid var(--border);
-    transition:.4s;
-}
-.friend:hover img{
-    transform:scale(1.15);
-}
-.close{
-    padding:10px 26px;
-    border-radius:16px;
-    border:1px solid var(--border);
-    background:none;
-    color:var(--text);
-    cursor:pointer;
+
+/* footer */
+.footer{
+  position:fixed;
+  bottom:22px;
+  font-size:11px;
+  color:var(--muted);
+  letter-spacing:2px;
 }
 </style>
 </head>
@@ -238,62 +119,31 @@ h1{
 <body>
 
 <div class="container">
-    <img src="assets/avatar.png" class="avatar">
-    <h1>MRKATANA</h1>
-    <div class="subtitle">Silence • Control • Impact</div>
+  <img src="assets/avatar.png" class="avatar">
 
-    <div class="buttons">
-        <a href="https://www.aparat.com/MasterKatana" target="_blank">Aparat</a>
-        <a href="https://www.aparat.com/MasterKatana/live" target="_blank">
-            Live <span class="live-dot"></span>
-        </a>
-        <a href="https://www.youtube.com/@Master_katana" target="_blank">YouTube</a>
-    </div>
+  <h1>MRKATANA</h1>
+  <div class="subtitle">NOISE OFF. WORK ON.</div>
+
+  <div class="divider"></div>
+
+  <div class="links">
+    <a href="https://www.aparat.com/MasterKatana" target="_blank">
+      APARAT <span>PRIMARY</span>
+    </a>
+
+    <a href="https://www.aparat.com/MasterKatana/live" target="_blank">
+      LIVE <span>ON AIR</span>
+    </a>
+
+    <a href="https://www.youtube.com/@Master_katana" target="_blank">
+      YOUTUBE <span>ARCHIVE</span>
+    </a>
+  </div>
 </div>
 
-<button class="toggle" onclick="toggleFriends()">☰</button>
-<a class="donate" href="https://www.coffeebede.com/masterkatana" target="_blank">Donate</a>
-<button class="friends-btn" onclick="toggleFriends()">Friends</button>
-
-<audio id="music" autoplay loop>
-    <source src="lofi.mp3" type="audio/mpeg">
-</audio>
-
-<div class="audio">
-    <button onclick="toggleMusic()">⏯</button>
-    <input type="range" min="0" max="100" id="volume">
+<div class="footer">
+  BUILT QUIET. MOVES HEAVY.
 </div>
-
-<div class="friends-panel" id="friends">
-    <div class="friends-box">
-        <h2>Friends</h2>
-        <div class="friends-grid">
-            <a class="friend"><img src="friends/huntermoon.jpg"><div>HunterMoon</div></a>
-            <a class="friend"><img src="friends/badcombo.jpg"><div>Itz_badcombo</div></a>
-            <a class="friend"><img src="friends/treyderi.jpg"><div>Treyderi</div></a>
-            <a class="friend"><img src="friends/witeice.jpg"><div>Witeice</div></a>
-        </div>
-        <button class="close" onclick="toggleFriends()">Close</button>
-    </div>
-</div>
-
-<script>
-const music=document.getElementById("music");
-const volume=document.getElementById("volume");
-volume.value=localStorage.getItem("vol")||30;
-music.volume=volume.value/100;
-volume.oninput=()=>{
-    music.volume=volume.value/100;
-    localStorage.setItem("vol",volume.value);
-};
-function toggleMusic(){
-    music.paused?music.play():music.pause();
-}
-function toggleFriends(){
-    const f=document.getElementById("friends");
-    f.style.display=f.style.display==="flex"?"none":"flex";
-}
-</script>
 
 </body>
 </html>
