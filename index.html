@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,38 +9,33 @@
 :root{
   --bg:#000;
   --fg:#fff;
-  --muted:#666;
+  --muted:#777;
 }
 
 *{
+  margin:0;
+  padding:0;
   box-sizing:border-box;
   font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto;
 }
 
 body{
-  margin:0;
   background:var(--bg);
   color:var(--fg);
   height:100vh;
   overflow:hidden;
 }
 
-/* subtle darkness motion */
-body::before{
+/* noise */
+body::after{
   content:"";
   position:fixed;
-  inset:-40%;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,.04), transparent 40%),
-    radial-gradient(circle at 70% 70%, rgba(255,255,255,.03), transparent 45%);
-  animation:drift 20s ease-in-out infinite alternate;
-}
-@keyframes drift{
-  from{transform:translate(0,0)}
-  to{transform:translate(-5%,4%)}
+  inset:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  pointer-events:none;
 }
 
-/* ENTER SCREEN */
+/* ENTER */
 .enter{
   position:fixed;
   inset:0;
@@ -50,9 +45,9 @@ body::before{
   background:#000;
   z-index:10;
   cursor:pointer;
-  transition:opacity .6s ease;
+  transition:.7s ease;
 }
-.enter.hidden{
+.enter.hide{
   opacity:0;
   pointer-events:none;
 }
@@ -64,73 +59,59 @@ body::before{
 
 /* MAIN */
 .main{
-  position:relative;
-  z-index:2;
   height:100%;
   display:flex;
-  flex-direction:column;
+  align-items:center;
   justify-content:center;
-  padding-left:10vw;
   opacity:0;
-  animation:fadeIn 1.2s ease forwards;
-  animation-delay:.6s;
+  transition:1s ease;
 }
-@keyframes fadeIn{
-  to{opacity:1}
+.main.show{opacity:1}
+
+.center{
+  text-align:center;
 }
 
-/* giant ghost text */
-.ghost{
-  position:absolute;
-  top:50%;
-  right:6vw;
-  transform:translateY(-50%);
-  font-size:22vw;
-  font-weight:900;
-  color:#050505;
-  letter-spacing:12px;
-  pointer-events:none;
-  user-select:none;
-}
-
-/* text */
 h1{
-  margin:0;
-  font-size:6vw;
+  font-size:64px;
+  letter-spacing:4px;
   font-weight:800;
-  letter-spacing:-2px;
-}
-.subtitle{
-  margin-top:18px;
-  font-size:13px;
-  letter-spacing:3px;
-  color:var(--muted);
 }
 
-/* links */
+.status{
+  margin-top:14px;
+  font-size:12px;
+  letter-spacing:3px;
+  color:#0f0;
+  opacity:.85;
+}
+
+/* LINKS */
 .links{
-  margin-top:90px;
+  margin-top:60px;
   display:flex;
   flex-direction:column;
-  gap:36px;
+  gap:26px;
 }
+
 .links a{
   text-decoration:none;
   color:var(--fg);
-  font-size:18px;
+  font-size:16px;
   letter-spacing:4px;
   position:relative;
-  width:max-content;
 }
+
 .links a::after{
   content:"";
   position:absolute;
-  left:0;
+  left:50%;
   bottom:-6px;
   width:0;
   height:1px;
   background:#fff;
   transition:.4s ease;
+  transform:translateX(-50%);
 }
 .links a:hover::after{
   width:100%;
@@ -139,9 +120,10 @@ h1{
 /* footer */
 .footer{
   position:fixed;
-  bottom:28px;
-  left:10vw;
-  font-size:11px;
+  bottom:24px;
+  width:100%;
+  text-align:center;
+  font-size:10px;
   letter-spacing:3px;
   color:var(--muted);
 }
@@ -150,30 +132,30 @@ h1{
 
 <body>
 
-<div class="enter" onclick="enterSite()">
+<div class="enter" onclick="enter()">
   <span>CLICK TO ENTER</span>
 </div>
 
 <div class="main" id="main">
-  <h1>MRKATANA</h1>
-  <div class="subtitle">STAY QUIET. WATCH CLOSE.</div>
+  <div class="center">
+    <h1>MRKATANA</h1>
+    <div class="status">● ONLINE</div>
 
-  <div class="links">
-    <a href="https://www.aparat.com/MasterKatana" target="_blank">APARAT</a>
-    <a href="https://www.aparat.com/MasterKatana/live" target="_blank">LIVE</a>
-    <a href="https://www.youtube.com/@Master_katana" target="_blank">YOUTUBE</a>
+    <div class="links">
+      <a href="https://www.aparat.com/MasterKatana" target="_blank">APARAT</a>
+      <a href="https://www.aparat.com/MasterKatana/live" target="_blank">LIVE</a>
+      <a href="https://www.youtube.com/@Master_katana" target="_blank">YOUTUBE</a>
+      <a href="https://www.coffeebede.com/masterkatana" target="_blank">DONATE</a>
+    </div>
   </div>
 </div>
 
-<div class="ghost">MK</div>
-
-<div class="footer">
-  NOTHING IS RANDOM
-</div>
+<div class="footer">© MRKATANA</div>
 
 <script>
-function enterSite(){
-  document.querySelector('.enter').classList.add('hidden');
+function enter(){
+  document.querySelector('.enter').classList.add('hide');
+  document.getElementById('main').classList.add('show');
 }
 </script>
 
