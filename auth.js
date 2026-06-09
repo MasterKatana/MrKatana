@@ -50,7 +50,7 @@ if(loginForm){
 
             alert("Login Successful!");
 
-            window.location.href = "index_pixel.html";
+            window.location.href = "index.html";
 
         } else {
 
