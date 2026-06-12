@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa">
+
 <head>
 
 <meta charset="UTF-8">
@@ -7,17 +8,19 @@
 
 <title>MrKatana | Info</title>
 
+
 <link rel="stylesheet" 
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
 <style>
 
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial;
+font-family:Arial, sans-serif;
 }
 
 
@@ -29,18 +32,52 @@ display:flex;
 justify-content:center;
 align-items:center;
 
-background:
-linear-gradient(90deg,#0009,#0009),
-url("background.mp4");
-
-background-size:cover;
-background-position:center;
-
 color:white;
+
 overflow:hidden;
+
+background:#000;
 
 }
 
+
+
+/* background video */
+
+.bg{
+
+position:fixed;
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+z-index:-2;
+
+filter:brightness(.35);
+
+}
+
+
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+inset:0;
+
+background:rgba(0,0,0,.55);
+
+z-index:-1;
+
+}
+
+
+
+/* card */
 
 
 .card{
@@ -57,38 +94,55 @@ border-radius:30px;
 
 backdrop-filter:blur(20px);
 
-border:1px solid #ffffff33;
+border:1px solid rgba(255,255,255,.25);
+
 
 box-shadow:
-0 0 40px #000,
-0 0 90px #ffffffaa;
 
-animation:up 1s;
+0 0 40px #000,
+0 0 100px white;
+
+
+animation:show 1s ease;
 
 }
 
 
 
-@keyframes up{
+
+
+@keyframes show{
 
 from{
+
 opacity:0;
+
 transform:translateY(50px);
+
 }
+
 
 to{
+
 opacity:1;
+
 transform:translateY(0);
-}
 
 }
 
+}
 
+
+
+
+
+/* avatar */
 
 
 .avatar{
 
 width:130px;
+
 height:130px;
 
 border-radius:50%;
@@ -97,41 +151,61 @@ object-fit:cover;
 
 border:4px solid white;
 
+
 box-shadow:
-0 0 25px white,
-0 0 60px #ffffffaa;
+
+0 0 30px white,
+0 0 80px white;
+
 
 }
+
+
 
 
 
 .name{
 
 font-size:32px;
-margin-top:18px;
+
+margin-top:20px;
+
+font-weight:bold;
 
 }
+
+
 
 
 
 .bio{
 
+margin-top:12px;
+
 color:#ddd;
-margin:12px;
+
+font-size:16px;
 
 }
 
 
 
+
+
+/* social icons */
+
+
 .links{
 
-margin-top:30px;
+margin-top:35px;
 
-display:grid;
+display:flex;
 
-grid-template-columns:repeat(5,1fr);
+justify-content:center;
 
 gap:15px;
+
+flex-wrap:wrap;
 
 }
 
@@ -139,101 +213,196 @@ gap:15px;
 
 .links a{
 
-height:55px;
+
+width:58px;
+
+height:58px;
+
 
 display:flex;
+
 align-items:center;
+
 justify-content:center;
 
-border-radius:18px;
 
-background:#ffffff15;
+border-radius:20px;
+
+
+background:rgba(255,255,255,.12);
+
 
 color:white;
 
-font-size:25px;
+
+font-size:28px;
+
 
 text-decoration:none;
 
+
 transition:.3s;
 
+
 }
+
+
 
 
 
 .links a:hover{
 
-transform:translateY(-10px) scale(1.1);
+
+transform:
+
+translateY(-10px)
+scale(1.15);
+
 
 background:white;
 
 color:black;
 
+
 box-shadow:
-0 0 25px white,
-0 0 50px #ffffffaa;
+
+0 0 35px white;
+
 
 }
 
 
+
+
+
 </style>
 
+
 </head>
+
 
 
 <body>
 
 
+
+
+<video class="bg" autoplay muted loop>
+
+
+<source src="background.mp4" type="video/mp4">
+
+
+</video>
+
+
+
+
+
 <div class="card">
+
+
+
 
 
 <img class="avatar" src="avatar.png">
 
 
+
+
+
+
 <div class="name">
+
 MrKatana
+
 </div>
+
+
+
 
 
 <div class="bio">
+
 Streamer • Content Creator • Designer
+
 </div>
+
+
+
+
 
 
 
 <div class="links">
 
 
+
+
+
 <a href="https://discord.gg/6TP3bwmpTt">
+
 <i class="fab fa-discord"></i>
+
 </a>
+
+
+
 
 
 <a href="https://www.aparat.com/MasterKatana">
+
 <i class="fa-solid fa-play"></i>
+
 </a>
+
+
+
 
 
 <a href="https://www.youtube.com/@Master_katana">
+
 <i class="fab fa-youtube"></i>
+
 </a>
+
+
+
 
 
 <a href="https://github.com/MasterKatana">
+
 <i class="fab fa-github"></i>
+
 </a>
 
 
-<a href="https://open.spotify.com/user/31nej2bpfzdclwtxnaqzaribjmiu?si=b2b67862d1d74cea">
+
+
+
+<a href="https://open.spotify.com/user/31nej2bpfzdclwtxnaqzaribjmiu">
+
 <i class="fab fa-spotify"></i>
+
 </a>
 
 
+
+
+
 </div>
 
 
+
+
+
+
 </div>
+
+
+
 
 
 </body>
+
 </html>
